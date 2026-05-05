@@ -1,9 +1,13 @@
 /* ================================================ */
-/*  🌊 DEEP OCEAN MOISTURE — CLEAR TEXT EDITION     */
-/*  Dark · Robotic · High Contrast · Readable       */
+/*  🌊 DEEP OCEAN MOISTURE — FIXED RESPONSIVE       */
+/*  Full-width desktop · Clean mobile · High contrast */
 /* ================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ===== VIEWPORT META — add to HTML <head> if missing =====
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   ========================================================= */
 
 :root {
   --bg-deep:         #020d12;
@@ -17,7 +21,6 @@
 
   --blue-ice:        #4dc9ff;
 
-  /* ✅ Text — all high contrast */
   --text-white:      #f0fffe;
   --text-bright:     #c8f5ee;
   --text-label:      #7eddd0;
@@ -30,9 +33,20 @@
   --green:           #00e5a0;
 }
 
+/* ===== RESET ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
 /* ===== BACKGROUND ===== */
 body {
-  margin: 0;
   font-family: 'DM Sans', sans-serif;
   background-color: var(--bg-deep);
   background-image:
@@ -40,11 +54,9 @@ body {
     radial-gradient(ellipse 55% 55% at 95% 100%, rgba(0, 120, 200, 0.14) 0%, transparent 65%),
     radial-gradient(ellipse 35% 25% at 50% 50%,  rgba(0, 255, 213, 0.04) 0%, transparent 60%);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
+  display: block;   /* KEY FIX */
 }
 
-/* diagonal grid lines — subtle moisture texture */
 body::before {
   content: "";
   position: fixed;
@@ -61,7 +73,6 @@ body::before {
   z-index: 0;
 }
 
-/* breathing glow blob */
 body::after {
   content: "";
   position: fixed;
@@ -81,21 +92,25 @@ body::after {
   to   { transform: scale(1.4) translate(70px, 50px); opacity: 1; }
 }
 
-/* ===== DASHBOARD ===== */
+/* ===== DASHBOARD — FULL WIDTH DESKTOP ===== */
 .dashboard {
-  width: 1200px;
-  padding: 48px 40px 64px;
+  width: 100%;
+  /* KEY FIX: removed max-width constraint, use generous padding on desktop */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 60px 80px;
   position: relative;
   z-index: 1;
+  overflow-x: hidden;
 }
 
 /* ===== TITLE ===== */
 .title {
   text-align: center;
   font-family: 'Rajdhani', sans-serif;
-  font-size: 48px;
+  font-size: 56px;
   font-weight: 700;
-  letter-spacing: 5px;
+  letter-spacing: 8px;
   text-transform: uppercase;
   color: transparent;
   background: linear-gradient(120deg, var(--teal-bright) 0%, var(--blue-ice) 50%, var(--teal-bright) 100%);
@@ -103,8 +118,9 @@ body::after {
   -webkit-background-clip: text;
   background-clip: text;
   animation: shimmer-text 5s linear infinite;
-  margin-bottom: 36px;
-  filter: drop-shadow(0 0 22px rgba(0, 255, 213, 0.45));
+  margin-bottom: 40px;
+  filter: drop-shadow(0 0 28px rgba(0, 255, 213, 0.5));
+  word-break: break-word;
 }
 
 @keyframes shimmer-text {
@@ -116,19 +132,20 @@ body::after {
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-glow);
-  border-radius: 18px;
-  padding: 28px 30px;
+  border-radius: 20px;
+  padding: 32px 36px;
   box-shadow:
     0 8px 36px rgba(0, 0, 0, 0.5),
     0 0 0 1px var(--border-dim),
     inset 0 1px 0 rgba(0, 255, 213, 0.1);
   transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
-/* top shimmer line — condensation effect */
 .card::before {
   content: "";
   position: absolute;
@@ -168,7 +185,7 @@ body::after {
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--text-label);
-  margin: 0 0 20px 0;
+  margin: 0 0 22px 0;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -182,6 +199,7 @@ body::after {
   background: var(--teal-bright);
   border-radius: 2px;
   box-shadow: 0 0 8px var(--teal-bright);
+  flex-shrink: 0;
 }
 
 /* ===== DATE CARD ===== */
@@ -189,6 +207,7 @@ body::after {
   display: flex;
   gap: 20px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .date-card label {
@@ -201,17 +220,18 @@ body::after {
 }
 
 input[type="date"] {
-  padding: 10px 16px;
+  padding: 10px 18px;
   border-radius: 10px;
   border: 1px solid var(--border-glow);
   background: rgba(0, 255, 213, 0.05);
   color: var(--teal-bright);
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   outline: none;
   transition: 0.25s;
   color-scheme: dark;
+  max-width: 100%;
 }
 
 input[type="date"]:focus {
@@ -221,16 +241,22 @@ input[type="date"]:focus {
 }
 
 /* ===== CHART ===== */
-.chart-card { width: 100%; }
+.chart-card {
+  width: 100%;
+  overflow: hidden;
+}
 
-.chart-card canvas { max-height: 420px; }
+.chart-card canvas {
+  max-height: 480px;
+  max-width: 100% !important;
+  width: 100% !important;
+}
 
 /* ===== CUMULATIVE CHART ===== */
 .cumulative-card {
   border-color: rgba(0, 255, 213, 0.18);
 }
 
-/* subtle extra left accent on cumulative card */
 .cumulative-card::after {
   content: "";
   position: absolute;
@@ -260,12 +286,13 @@ input[type="date"]:focus {
 .ten-day-stat-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 12px;
+  gap: 14px;
+  padding: 10px 16px;
   border-radius: 10px;
   background: rgba(0, 255, 213, 0.03);
   border: 1px solid rgba(0, 255, 213, 0.06);
   transition: background 0.2s, border-color 0.2s;
+  flex-wrap: wrap;
 }
 
 .ten-day-stat-row:hover {
@@ -287,16 +314,17 @@ input[type="date"]:focus {
   font-weight: 600;
   letter-spacing: 1.5px;
   color: var(--text-label);
-  min-width: 100px;
+  min-width: 110px;
 }
 
 .ten-day-badge {
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  padding: 3px 10px;
+  padding: 3px 12px;
   border-radius: 6px;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .max-badge {
@@ -319,7 +347,7 @@ input[type="date"]:focus {
 
 /* ===== NO DATA ===== */
 .no-data {
-  height: 350px;
+  height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -329,13 +357,14 @@ input[type="date"]:focus {
   letter-spacing: 3px;
   color: var(--red);
   text-shadow: 0 0 20px rgba(255, 77, 106, 0.5);
+  text-align: center;
 }
 
 /* ===== STATS ===== */
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
 
 .stat { text-align: center; }
@@ -347,12 +376,12 @@ input[type="date"]:focus {
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin: 0 0 10px 0;
+  margin: 0 0 12px 0;
 }
 
 .stat p {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 52px;
+  font-size: 62px;
   font-weight: 700;
   margin: 0;
   color: var(--teal-bright);
@@ -370,14 +399,20 @@ input[type="date"]:focus {
 }
 
 /* ===== TABLE ===== */
+.table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .table table {
   width: 100%;
+  min-width: 320px;
   border-collapse: collapse;
 }
 
 .table th {
   border-bottom: 1px solid var(--teal-dim);
-  padding: 10px 16px;
+  padding: 12px 18px;
   text-align: left;
   font-family: 'Rajdhani', sans-serif;
   font-size: 11px;
@@ -385,15 +420,17 @@ input[type="date"]:focus {
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--text-label);
+  white-space: nowrap;
 }
 
 .table td {
-  padding: 11px 16px;
+  padding: 13px 18px;
   border-bottom: 1px solid rgba(0, 255, 213, 0.05);
   color: var(--text-bright);
   font-size: 14px;
   font-weight: 400;
   font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
 }
 
 .table td:last-child {
@@ -424,7 +461,7 @@ input[type="date"]:focus {
   border-radius: 12px;
   width: 100%;
   max-width: 100%;
-  padding: 14px 44px 14px 18px;
+  padding: 14px 48px 14px 20px;
   margin-bottom: 10px;
   box-sizing: border-box;
   transition: 0.2s;
@@ -448,8 +485,8 @@ input[type="date"]:focus {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -475,10 +512,9 @@ input[type="date"]:focus {
   box-shadow: 0 0 12px rgba(255, 77, 106, 0.3);
 }
 
-/* textarea */
 .feedback textarea {
   width: 100%;
-  height: 96px;
+  height: 100px;
   padding: 14px 16px;
   border-radius: 12px;
   border: 1px solid rgba(0, 255, 213, 0.18);
@@ -504,11 +540,10 @@ input[type="date"]:focus {
   box-shadow: 0 0 0 3px rgba(0, 255, 213, 0.1);
 }
 
-/* submit button */
 .feedback > button {
   margin-top: 14px;
-  width: 140px;
-  padding: 12px;
+  width: 150px;
+  padding: 13px;
   background: linear-gradient(135deg, var(--teal-mid), var(--teal-dim));
   color: #001a14;
   border: none;
@@ -534,13 +569,13 @@ input[type="date"]:focus {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
 }
 
 .zoom-icon-btn {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 9px;
   border: 1px solid rgba(0, 255, 213, 0.22);
   background: rgba(0, 255, 213, 0.05);
@@ -552,6 +587,7 @@ input[type="date"]:focus {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .zoom-icon-btn:hover {
@@ -576,13 +612,14 @@ input[type="date"]:focus {
   background: rgba(0, 255, 213, 0.04);
   border: 1px solid rgba(0, 255, 213, 0.1);
   border-radius: 8px;
-  padding: 7px 14px;
+  padding: 7px 16px;
   font-family: 'DM Sans', sans-serif;
   letter-spacing: 0.3px;
+  white-space: nowrap;
 }
 
 .reset-btn {
-  padding: 7px 16px;
+  padding: 7px 18px;
   background: rgba(255, 77, 106, 0.1);
   color: var(--red);
   border: 1px solid rgba(255, 77, 106, 0.35);
@@ -593,6 +630,7 @@ input[type="date"]:focus {
   letter-spacing: 2px;
   cursor: pointer;
   transition: 0.2s;
+  white-space: nowrap;
 }
 
 .reset-btn:hover {
@@ -608,13 +646,165 @@ input[type="date"]:focus {
 ::-webkit-scrollbar-thumb:hover { background: var(--teal-mid); }
 
 /* ===== RESPONSIVE ===== */
+
+/* Large desktop — very wide screens */
+@media (min-width: 1600px) {
+  .dashboard {
+    padding: 56px 80px 96px;
+  }
+
+  .title {
+    font-size: 64px;
+    letter-spacing: 10px;
+  }
+
+  .stat p {
+    font-size: 72px;
+  }
+}
+
+/* Tablet landscape / small desktop */
+@media (max-width: 1100px) {
+  .dashboard {
+    padding: 40px 40px 64px;
+  }
+}
+
+/* Tablet portrait */
 @media (max-width: 900px) {
-  .dashboard { width: 100%; padding: 24px 16px 48px; }
-  .title { font-size: 30px; letter-spacing: 3px; }
-  .stats { grid-template-columns: 1fr; }
-  .date-card { flex-direction: column; align-items: flex-start; }
-  .zoom-controls { gap: 8px; }
-  .stat p { font-size: 40px; }
-  .ten-day-stat-row { flex-wrap: wrap; gap: 8px; }
-  .ten-day-date { min-width: auto; }
+  .dashboard {
+    padding: 28px 24px 56px;
+  }
+
+  .title {
+    font-size: 34px;
+    letter-spacing: 4px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .stat p {
+    font-size: 44px;
+  }
+
+  .date-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card {
+    padding: 24px 24px;
+  }
+}
+
+/* Mobile — up to 600px */
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 20px 16px 48px;
+  }
+
+  .title {
+    font-size: 26px;
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+  }
+
+  .card {
+    padding: 20px 18px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+
+  /* Stack stats to 1 column on small phones */
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat p {
+    font-size: 48px;
+  }
+
+  .stat h4 {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .chart-card canvas {
+    max-height: 280px;
+  }
+
+  .zoom-controls {
+    gap: 6px;
+  }
+
+  .zoom-icon-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .zoom-level {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .reset-btn {
+    font-size: 11px;
+    padding: 5px 12px;
+    letter-spacing: 1px;
+  }
+
+  .ten-day-date {
+    font-size: 12px;
+    min-width: auto;
+  }
+
+  .ten-day-stat-row {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .feedback textarea {
+    height: 84px;
+    font-size: 13px;
+  }
+
+  .feedback > button {
+    width: 100%;
+    letter-spacing: 2px;
+  }
+
+  .table th,
+  .table td {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .table td:last-child {
+    font-size: 14px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .title {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .dashboard {
+    padding: 16px 12px 40px;
+  }
+
+  .card {
+    padding: 16px 14px;
+  }
+
+  .stat p {
+    font-size: 40px;
+  }
 }
